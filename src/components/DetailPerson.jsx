@@ -5,17 +5,31 @@ import { useParams } from "react-router-dom";
 const DetailPerson = () => {
   const { id } = useParams();
   const [person, setPerson] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://www.swapi.tech/api/people/${id}`)
-      .then(res => res.json())
-      .then(data => {
+
+    const fetchPerson = async () => {
+      try {
+        // Obtener datos del personaje desde SWAPI
+        const res = await fetch(`https://www.swapi.tech/api/people/${id}`);
+        const data = await res.json();
         setPerson(data.result.properties);
-      })
-      .catch(err => console.error("Error fetching person:", err))
-      .finally(() => setLoading(false));
+
+        // Obtener la imagen desde la API de Akabab
+        const imageRes = await fetch(`https://akabab.github.io/starwars-api/api/id/${id}.json`);
+        const imageData = await imageRes.json();
+        setImageUrl(imageData.image);
+      } catch (err) {
+        console.error("Error fetching person or image:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPerson();
   }, [id]);
 
   if (loading) {
@@ -36,16 +50,14 @@ const DetailPerson = () => {
     );
   }
 
-  const imgUrl = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
-
   return (
     <div className="container mt-5">
       <div className="row align-items-center">
-        {/* Imagen a la izquierda */}
+        {/* Imagen */}
         <div className="col-md-6">
           <div style={{ width: "100%", height: "400px", overflow: "hidden" }}>
             <img
-              src={imgUrl}
+              src={imageUrl || "/placeholder-character.jpg"}
               alt={person.name}
               className="img-fluid"
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
@@ -56,7 +68,8 @@ const DetailPerson = () => {
             />
           </div>
         </div>
-        {/* Nombre y descripción a la derecha */}
+
+        {/* Nombre y descripción */}
         <div className="col-md-6">
           <h1>{person.name}</h1>
           <p>
@@ -69,7 +82,7 @@ const DetailPerson = () => {
 
       <hr className="my-4" />
 
-      {/* Fila de propiedades */}
+      {/* Propiedades */}
       <div className="row text-danger text-center">
         <div className="col">
           <h6>Name</h6>

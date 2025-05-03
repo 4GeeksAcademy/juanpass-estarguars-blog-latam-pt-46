@@ -19,7 +19,7 @@ export const CardPlaneta = ({ id, nombre }) => {
   }, [id]);
 
   return (
-    <div className="flex-shrink-0 me-3 mb-4" style={{ minWidth: "18rem" }}>
+    <div className="flex-shrink-0 me-3 mb-4" style={{ width: "300px" }}>
       <div className="card h-100">
         <img
           src={imgUrl}
@@ -28,7 +28,7 @@ export const CardPlaneta = ({ id, nombre }) => {
           style={{ height: "200px", objectFit: "cover" }}
           onError={e => {
             e.target.onerror = null;
-            e.target.src = "https://via.placeholder.com/200x200?text=No+Image";
+            e.target.src = "https://placehold.co/200x200";
           }}
         />
         <div className="card-body d-flex flex-column">

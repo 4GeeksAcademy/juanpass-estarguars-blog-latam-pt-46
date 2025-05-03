@@ -13,7 +13,7 @@ const DetailPlanet = () => {
   }, [dispatch, id]);
 
   const planeta = store.detalle_planeta;
-  const imgUrl = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
+  const imgUrl = `https://placehold.co/400x400`;
 
   return (
     <div className="container mt-5">

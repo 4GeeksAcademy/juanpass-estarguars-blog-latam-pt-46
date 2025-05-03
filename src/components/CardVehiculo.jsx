@@ -19,7 +19,7 @@ export const CardVehiculo = ({ id, nombre }) => {
   }, [id]);
 
   return (
-    <div className="flex-shrink-0 me-3 mb-4" style={{ minWidth: "18rem" }}>
+    <div className="flex-shrink-0 me-3 mb-4" style={{ width: "300px" }}>
       <div className="card h-100">
         <img
           src={imgUrl}
@@ -28,19 +28,19 @@ export const CardVehiculo = ({ id, nombre }) => {
           style={{ height: "200px", objectFit: "cover" }}
           onError={e => {
             e.target.onerror = null;
-            e.target.src = "https://via.placeholder.com/200x200?text=No+Image";
+            e.target.src = "https://placehold.co/200x200";
           }}
         />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title">{nombre}</h5>
           {details ? (
-            <ul className="card-text">
+            <ul className="card-text" style={{ fontSize: "0.875rem" }}>
               <li><strong>Model:</strong> {details.model}</li>
               <li><strong>Manufacturer:</strong> {details.manufacturer}</li>
               <li><strong>Passengers:</strong> {details.passengers}</li>
             </ul>
           ) : (
-            <p className="card-text">Cargando datos…</p>
+            <p className="card-text" style={{ fontSize: "0.875rem" }}>Cargando datos…</p>
           )}
           <div className="mt-auto d-flex justify-content-between">
             <Link to={`/detailVehicle/${id}`} className="btn btn-sm btn-outline-primary">

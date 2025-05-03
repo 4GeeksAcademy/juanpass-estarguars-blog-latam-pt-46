@@ -34,7 +34,7 @@ const DetailVehiculo = () => {
     );
   }
 
-  const imgUrl = `https://starwars-visualguide.com/assets/img/vehicles/${id}.jpg`;
+  const imgUrl = `https://placehold.co/400x400`;
 
   return (
     <div className="container mt-5">
